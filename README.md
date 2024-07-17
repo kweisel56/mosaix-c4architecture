@@ -1,0 +1,1 @@
+# mosaix-c4architecture
