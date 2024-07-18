@@ -1,75 +1,632 @@
 {
-  "configuration" : {
-    "scope" : "SoftwareSystem"
-  },
-  "description" : "Description",
+  "configuration" : { },
+  "description" : "An example of MosAiX deployment architecture.",
   "documentation" : { },
   "id" : 1,
   "lastModifiedAgent" : "structurizr-javascript",
-  "lastModifiedDate" : "2024-07-17T19:52:32Z",
+  "lastModifiedDate" : "2024-07-18T13:34:53Z",
   "model" : {
+    "deploymentNodes" : [ {
+      "children" : [ {
+        "children" : [ {
+          "children" : [ {
+            "description" : "10.0.0.0/24",
+            "environment" : "Production",
+            "id" : "21",
+            "infrastructureNodes" : [ {
+              "description" : "Routes API requests to backend services.",
+              "environment" : "Production",
+              "id" : "22",
+              "name" : "API Gateway",
+              "properties" : {
+                "structurizr.dsl.identifier" : "apigateway",
+                "owner" : "API Team",
+                "scheme" : "internet-facing"
+              },
+              "relationships" : [ {
+                "description" : "Forwards requests to",
+                "destinationId" : "27",
+                "id" : "38",
+                "properties" : {
+                  "structurizr.dsl.identifier" : "1446858b-e032-459b-a18a-7f27d4ed0af7"
+                },
+                "sourceId" : "22",
+                "tags" : "Relationship",
+                "technology" : "HTTPS"
+              } ],
+              "tags" : "Element,Infrastructure Node,API Gateway"
+            } ],
+            "instances" : "1",
+            "name" : "Public Subnet",
+            "properties" : {
+              "structurizr.dsl.identifier" : "publicsubnet",
+              "availabilityZone" : "us-east-multiple"
+            },
+            "tags" : "Element,Deployment Node,Subnet"
+          }, {
+            "children" : [ {
+              "children" : [ {
+                "children" : [ {
+                  "containerInstances" : [ {
+                    "containerId" : "3",
+                    "deploymentGroups" : [ "Default" ],
+                    "environment" : "Production",
+                    "id" : "27",
+                    "instanceId" : 1,
+                    "properties" : {
+                      "structurizr.dsl.identifier" : "inputinterfacepod"
+                    },
+                    "relationships" : [ {
+                      "description" : "Utilizes AI assistance",
+                      "destinationId" : "28",
+                      "id" : "29",
+                      "linkedRelationshipId" : "10",
+                      "sourceId" : "27"
+                    }, {
+                      "description" : "Sends DSL inputs",
+                      "destinationId" : "30",
+                      "id" : "31",
+                      "linkedRelationshipId" : "11",
+                      "sourceId" : "27"
+                    }, {
+                      "description" : "Sends logs to",
+                      "destinationId" : "36",
+                      "id" : "39",
+                      "properties" : {
+                        "structurizr.dsl.identifier" : "4ee2c378-81f7-4a12-af98-25a5f51b5183"
+                      },
+                      "sourceId" : "27",
+                      "tags" : "Relationship"
+                    }, {
+                      "description" : "Uses roles and policies from",
+                      "destinationId" : "37",
+                      "id" : "40",
+                      "properties" : {
+                        "structurizr.dsl.identifier" : "b29ddafa-4724-4909-9fe3-79ca84a8cb2f"
+                      },
+                      "sourceId" : "27",
+                      "tags" : "Relationship"
+                    } ],
+                    "tags" : "Container Instance"
+                  }, {
+                    "containerId" : "4",
+                    "deploymentGroups" : [ "Default" ],
+                    "environment" : "Production",
+                    "id" : "28",
+                    "instanceId" : 1,
+                    "properties" : {
+                      "structurizr.dsl.identifier" : "gptassistantpod"
+                    },
+                    "tags" : "Container Instance"
+                  }, {
+                    "containerId" : "5",
+                    "deploymentGroups" : [ "Default" ],
+                    "environment" : "Production",
+                    "id" : "30",
+                    "instanceId" : 1,
+                    "properties" : {
+                      "structurizr.dsl.identifier" : "modelparserpod"
+                    },
+                    "relationships" : [ {
+                      "description" : "Sends structured JSON",
+                      "destinationId" : "32",
+                      "id" : "33",
+                      "linkedRelationshipId" : "12",
+                      "sourceId" : "30"
+                    } ],
+                    "tags" : "Container Instance"
+                  }, {
+                    "containerId" : "6",
+                    "deploymentGroups" : [ "Default" ],
+                    "environment" : "Production",
+                    "id" : "32",
+                    "instanceId" : 1,
+                    "properties" : {
+                      "structurizr.dsl.identifier" : "mappingenginepod"
+                    },
+                    "relationships" : [ {
+                      "description" : "Stores and retrieves templates",
+                      "destinationId" : "34",
+                      "id" : "35",
+                      "linkedRelationshipId" : "13",
+                      "sourceId" : "32"
+                    } ],
+                    "tags" : "Container Instance"
+                  }, {
+                    "containerId" : "7",
+                    "deploymentGroups" : [ "Default" ],
+                    "environment" : "Production",
+                    "id" : "34",
+                    "instanceId" : 1,
+                    "properties" : {
+                      "structurizr.dsl.identifier" : "templaterepositorypod"
+                    },
+                    "tags" : "Container Instance"
+                  } ],
+                  "environment" : "Production",
+                  "id" : "26",
+                  "instances" : "1",
+                  "name" : "Kubernetes Node Group",
+                  "properties" : {
+                    "structurizr.dsl.identifier" : "kubernetesnodegroup"
+                  },
+                  "tags" : "Element,Deployment Node,Kubernetes Node Group"
+                } ],
+                "environment" : "Production",
+                "id" : "25",
+                "instances" : "1",
+                "name" : "Kubernetes Cluster",
+                "properties" : {
+                  "structurizr.dsl.identifier" : "kubernetescluster"
+                },
+                "tags" : "Element,Deployment Node,Kubernetes Cluster"
+              } ],
+              "environment" : "Production",
+              "id" : "24",
+              "instances" : "1",
+              "name" : "Kubernetes Service",
+              "properties" : {
+                "structurizr.dsl.identifier" : "kubernetes"
+              },
+              "tags" : "Element,Deployment Node,Kubernetes Service"
+            } ],
+            "description" : "10.0.1.0/24",
+            "environment" : "Production",
+            "id" : "23",
+            "infrastructureNodes" : [ {
+              "description" : "Monitoring and logging service.",
+              "environment" : "Production",
+              "id" : "36",
+              "name" : "Monitoring",
+              "properties" : {
+                "structurizr.dsl.identifier" : "monitoring"
+              },
+              "tags" : "Element,Infrastructure Node,Monitoring"
+            } ],
+            "instances" : "1",
+            "name" : "Private Subnet",
+            "properties" : {
+              "structurizr.dsl.identifier" : "privatesubnet",
+              "availabilityZone" : "us-east-1b"
+            },
+            "tags" : "Element,Deployment Node,Subnet"
+          } ],
+          "environment" : "Production",
+          "id" : "20",
+          "infrastructureNodes" : [ {
+            "description" : "Identity and Access Management service.",
+            "environment" : "Production",
+            "id" : "37",
+            "name" : "Identity and Access Management",
+            "properties" : {
+              "structurizr.dsl.identifier" : "identityaccessmanagement"
+            },
+            "tags" : "Element,Infrastructure Node,Identity and Access Management"
+          } ],
+          "instances" : "1",
+          "name" : "Network",
+          "properties" : {
+            "structurizr.dsl.identifier" : "ipscheme",
+            "networkAdmin" : "Network Team",
+            "cidr" : "10.0.0.0/16"
+          },
+          "tags" : "Element,Deployment Node,ipScheme"
+        } ],
+        "environment" : "Production",
+        "id" : "19",
+        "instances" : "1",
+        "name" : "Region",
+        "properties" : {
+          "structurizr.dsl.identifier" : "region"
+        },
+        "tags" : "Element,Deployment Node,Region"
+      } ],
+      "environment" : "Production",
+      "id" : "18",
+      "instances" : "1",
+      "name" : "Cloud Provider",
+      "properties" : {
+        "structurizr.dsl.identifier" : "b25a4377-040f-4f3c-b33d-6fd52d4de2cb",
+        "owner" : "Cloud Team"
+      },
+      "tags" : "Element,Deployment Node,Cloud"
+    } ],
     "people" : [ {
+      "description" : "A user who interacts with the GPT Assistant to write Architecture as Code using an IDE.",
       "id" : "1",
       "location" : "Unspecified",
-      "name" : "User",
+      "name" : "Cloud Architect/Engineer",
       "properties" : {
         "structurizr.dsl.identifier" : "user"
       },
       "relationships" : [ {
-        "description" : "Uses",
-        "destinationId" : "2",
-        "id" : "3",
+        "description" : "Interacts with",
+        "destinationId" : "3",
+        "id" : "8",
         "properties" : {
-          "structurizr.dsl.identifier" : "f2346b01-b96b-4c68-b452-3434cdcb1a55"
+          "structurizr.dsl.identifier" : "d1f264c0-b0c9-4c69-ae4e-cbd6e8dea750"
         },
         "sourceId" : "1",
         "tags" : "Relationship"
+      }, {
+        "description" : "Interacts with",
+        "destinationId" : "2",
+        "id" : "9",
+        "linkedRelationshipId" : "8",
+        "sourceId" : "1"
       } ],
       "tags" : "Element,Person"
     } ],
     "softwareSystems" : [ {
+      "containers" : [ {
+        "description" : "Provides a user-friendly interface for monitoring, configuration management, and API interactions.",
+        "documentation" : { },
+        "id" : "3",
+        "name" : "Input Interface",
+        "properties" : {
+          "structurizr.dsl.identifier" : "inputinterface"
+        },
+        "relationships" : [ {
+          "description" : "Utilizes AI assistance",
+          "destinationId" : "4",
+          "id" : "10",
+          "properties" : {
+            "structurizr.dsl.identifier" : "020f8c29-8e9a-4b8f-84bb-d3c18d035350"
+          },
+          "sourceId" : "3",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Sends DSL inputs",
+          "destinationId" : "5",
+          "id" : "11",
+          "properties" : {
+            "structurizr.dsl.identifier" : "479b1121-3245-4553-93b6-70c8b6a8fd99"
+          },
+          "sourceId" : "3",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Web Application"
+      }, {
+        "description" : "An AI assistant that helps users design and optimize their cloud architecture.",
+        "documentation" : { },
+        "id" : "4",
+        "name" : "Architect GPT Assistant",
+        "properties" : {
+          "structurizr.dsl.identifier" : "gptassistant"
+        },
+        "tags" : "Element,Container",
+        "technology" : "AI Service"
+      }, {
+        "description" : "Processes DSL inputs and transforms them into a structured JSON format, with enhanced AI capabilities for real-time processing and adaptive parsing.",
+        "documentation" : { },
+        "id" : "5",
+        "name" : "AI-Based Model Parser",
+        "properties" : {
+          "structurizr.dsl.identifier" : "modelparser"
+        },
+        "relationships" : [ {
+          "description" : "Sends structured JSON",
+          "destinationId" : "6",
+          "id" : "12",
+          "properties" : {
+            "structurizr.dsl.identifier" : "6b62b6fb-3163-4db4-8e09-1ca4215909bb"
+          },
+          "sourceId" : "5",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Microservice"
+      }, {
+        "description" : "Processes JSON inputs to decompose, match, and merge templates into deployable IaC with dynamic and autonomous capabilities.",
+        "documentation" : { },
+        "id" : "6",
+        "name" : "AI-Based Mapping Engine",
+        "properties" : {
+          "structurizr.dsl.identifier" : "mappingengine"
+        },
+        "relationships" : [ {
+          "description" : "Stores and retrieves templates",
+          "destinationId" : "7",
+          "id" : "13",
+          "properties" : {
+            "structurizr.dsl.identifier" : "f0b3af6e-c80b-4306-9c3a-6edb285cb99a"
+          },
+          "sourceId" : "6",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Microservice"
+      }, {
+        "description" : "Stores architecture, infrastructure, configuration, and security code templates for various cloud patterns.",
+        "documentation" : { },
+        "id" : "7",
+        "name" : "Code Template Repository",
+        "properties" : {
+          "structurizr.dsl.identifier" : "templaterepository"
+        },
+        "tags" : "Element,Container",
+        "technology" : "Repository"
+      } ],
+      "description" : "A revolutionary platform for cloud management powered by advanced LLMs, managing multiple cloud vendors agnostically.",
       "documentation" : { },
       "id" : "2",
       "location" : "Unspecified",
-      "name" : "Software System",
+      "name" : "MosAiX",
       "properties" : {
-        "structurizr.dsl.identifier" : "softwaresystem"
+        "structurizr.dsl.identifier" : "mosaix"
+      },
+      "relationships" : [ {
+        "description" : "Stores DSL",
+        "destinationId" : "14",
+        "id" : "16",
+        "properties" : {
+          "structurizr.dsl.identifier" : "d92c064e-c242-4614-a94d-3124910e9304"
+        },
+        "sourceId" : "2",
+        "tags" : "Relationship"
+      } ],
+      "tags" : "Element,Software System"
+    }, {
+      "description" : "Version control system where the DSL is stored.",
+      "documentation" : { },
+      "id" : "14",
+      "location" : "Unspecified",
+      "name" : "Git",
+      "properties" : {
+        "structurizr.dsl.identifier" : "git"
+      },
+      "relationships" : [ {
+        "description" : "Triggers on gitflow change",
+        "destinationId" : "15",
+        "id" : "17",
+        "properties" : {
+          "structurizr.dsl.identifier" : "d7c5fe33-3e9b-4b21-b8d1-0a0c8ff016ba"
+        },
+        "sourceId" : "14",
+        "tags" : "Relationship"
+      } ],
+      "tags" : "Element,Software System"
+    }, {
+      "description" : "Continuous Integration Pipeline triggered by gitflow change process.",
+      "documentation" : { },
+      "id" : "15",
+      "location" : "Unspecified",
+      "name" : "CI Pipeline",
+      "properties" : {
+        "structurizr.dsl.identifier" : "cipipeline"
       },
       "tags" : "Element,Software System"
     } ]
   },
-  "name" : "Name",
+  "name" : "MosAiX Deployment",
   "properties" : {
-    "structurizr.dsl" : "d29ya3NwYWNlIHsKCiAgICBtb2RlbCB7CiAgICAgICAgdXNlciA9IHBlcnNvbiAiVXNlciIKICAgICAgICBzb2Z0d2FyZVN5c3RlbSA9IHNvZnR3YXJlU3lzdGVtICJTb2Z0d2FyZSBTeXN0ZW0iCgogICAgICAgIHVzZXIgLT4gc29mdHdhcmVTeXN0ZW0gIlVzZXMiCiAgICB9CgogICAgdmlld3MgewogICAgICAgIHN5c3RlbUNvbnRleHQgc29mdHdhcmVTeXN0ZW0gIkRpYWdyYW0xIiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgIH0KICAgIH0KCiAgICBjb25maWd1cmF0aW9uIHsKICAgICAgICBzY29wZSBzb2Z0d2FyZXN5c3RlbQogICAgfQoKfQo="
+    "structurizr.dsl" : "d29ya3NwYWNlICJNb3NBaVggRGVwbG95bWVudCIgIkFuIGV4YW1wbGUgb2YgTW9zQWlYIGRlcGxveW1lbnQgYXJjaGl0ZWN0dXJlLiIgewogICAgbW9kZWwgewogICAgICAgIHVzZXIgPSBwZXJzb24gIkNsb3VkIEFyY2hpdGVjdC9FbmdpbmVlciIgewogICAgICAgICAgICBkZXNjcmlwdGlvbiAiQSB1c2VyIHdobyBpbnRlcmFjdHMgd2l0aCB0aGUgR1BUIEFzc2lzdGFudCB0byB3cml0ZSBBcmNoaXRlY3R1cmUgYXMgQ29kZSB1c2luZyBhbiBJREUuIgogICAgICAgIH0KICAgICAgICAKICAgICAgICBtb3NBaXggPSBzb2Z0d2FyZVN5c3RlbSAiTW9zQWlYIiB7CiAgICAgICAgICAgIGRlc2NyaXB0aW9uICJBIHJldm9sdXRpb25hcnkgcGxhdGZvcm0gZm9yIGNsb3VkIG1hbmFnZW1lbnQgcG93ZXJlZCBieSBhZHZhbmNlZCBMTE1zLCBtYW5hZ2luZyBtdWx0aXBsZSBjbG91ZCB2ZW5kb3JzIGFnbm9zdGljYWxseS4iCgogICAgICAgICAgICBpbnB1dEludGVyZmFjZSA9IGNvbnRhaW5lciAiSW5wdXQgSW50ZXJmYWNlIiB7CiAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbiAiUHJvdmlkZXMgYSB1c2VyLWZyaWVuZGx5IGludGVyZmFjZSBmb3IgbW9uaXRvcmluZywgY29uZmlndXJhdGlvbiBtYW5hZ2VtZW50LCBhbmQgQVBJIGludGVyYWN0aW9ucy4iCiAgICAgICAgICAgICAgICB0ZWNobm9sb2d5ICJXZWIgQXBwbGljYXRpb24iCiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGdwdEFzc2lzdGFudCA9IGNvbnRhaW5lciAiQXJjaGl0ZWN0IEdQVCBBc3Npc3RhbnQiIHsKICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uICJBbiBBSSBhc3Npc3RhbnQgdGhhdCBoZWxwcyB1c2VycyBkZXNpZ24gYW5kIG9wdGltaXplIHRoZWlyIGNsb3VkIGFyY2hpdGVjdHVyZS4iCiAgICAgICAgICAgICAgICB0ZWNobm9sb2d5ICJBSSBTZXJ2aWNlIgogICAgICAgICAgICB9CgogICAgICAgICAgICBtb2RlbFBhcnNlciA9IGNvbnRhaW5lciAiQUktQmFzZWQgTW9kZWwgUGFyc2VyIiB7CiAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbiAiUHJvY2Vzc2VzIERTTCBpbnB1dHMgYW5kIHRyYW5zZm9ybXMgdGhlbSBpbnRvIGEgc3RydWN0dXJlZCBKU09OIGZvcm1hdCwgd2l0aCBlbmhhbmNlZCBBSSBjYXBhYmlsaXRpZXMgZm9yIHJlYWwtdGltZSBwcm9jZXNzaW5nIGFuZCBhZGFwdGl2ZSBwYXJzaW5nLiIKICAgICAgICAgICAgICAgIHRlY2hub2xvZ3kgIk1pY3Jvc2VydmljZSIKICAgICAgICAgICAgfQoKICAgICAgICAgICAgbWFwcGluZ0VuZ2luZSA9IGNvbnRhaW5lciAiQUktQmFzZWQgTWFwcGluZyBFbmdpbmUiIHsKICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uICJQcm9jZXNzZXMgSlNPTiBpbnB1dHMgdG8gZGVjb21wb3NlLCBtYXRjaCwgYW5kIG1lcmdlIHRlbXBsYXRlcyBpbnRvIGRlcGxveWFibGUgSWFDIHdpdGggZHluYW1pYyBhbmQgYXV0b25vbW91cyBjYXBhYmlsaXRpZXMuIgogICAgICAgICAgICAgICAgdGVjaG5vbG9neSAiTWljcm9zZXJ2aWNlIgogICAgICAgICAgICB9CgogICAgICAgICAgICB0ZW1wbGF0ZVJlcG9zaXRvcnkgPSBjb250YWluZXIgIkNvZGUgVGVtcGxhdGUgUmVwb3NpdG9yeSIgewogICAgICAgICAgICAgICAgZGVzY3JpcHRpb24gIlN0b3JlcyBhcmNoaXRlY3R1cmUsIGluZnJhc3RydWN0dXJlLCBjb25maWd1cmF0aW9uLCBhbmQgc2VjdXJpdHkgY29kZSB0ZW1wbGF0ZXMgZm9yIHZhcmlvdXMgY2xvdWQgcGF0dGVybnMuIgogICAgICAgICAgICAgICAgdGVjaG5vbG9neSAiUmVwb3NpdG9yeSIKICAgICAgICAgICAgfQoKICAgICAgICAgICAgdXNlciAtPiBpbnB1dEludGVyZmFjZSAiSW50ZXJhY3RzIHdpdGgiCiAgICAgICAgICAgIGlucHV0SW50ZXJmYWNlIC0+IGdwdEFzc2lzdGFudCAiVXRpbGl6ZXMgQUkgYXNzaXN0YW5jZSIKICAgICAgICAgICAgaW5wdXRJbnRlcmZhY2UgLT4gbW9kZWxQYXJzZXIgIlNlbmRzIERTTCBpbnB1dHMiCiAgICAgICAgICAgIG1vZGVsUGFyc2VyIC0+IG1hcHBpbmdFbmdpbmUgIlNlbmRzIHN0cnVjdHVyZWQgSlNPTiIKICAgICAgICAgICAgbWFwcGluZ0VuZ2luZSAtPiB0ZW1wbGF0ZVJlcG9zaXRvcnkgIlN0b3JlcyBhbmQgcmV0cmlldmVzIHRlbXBsYXRlcyIKICAgICAgICB9CgogICAgICAgIGdpdCA9IHNvZnR3YXJlU3lzdGVtICJHaXQiIHsKICAgICAgICAgICAgZGVzY3JpcHRpb24gIlZlcnNpb24gY29udHJvbCBzeXN0ZW0gd2hlcmUgdGhlIERTTCBpcyBzdG9yZWQuIgogICAgICAgIH0KCiAgICAgICAgY2lQaXBlbGluZSA9IHNvZnR3YXJlU3lzdGVtICJDSSBQaXBlbGluZSIgewogICAgICAgICAgICBkZXNjcmlwdGlvbiAiQ29udGludW91cyBJbnRlZ3JhdGlvbiBQaXBlbGluZSB0cmlnZ2VyZWQgYnkgZ2l0ZmxvdyBjaGFuZ2UgcHJvY2Vzcy4iCiAgICAgICAgfQoKICAgICAgICBtb3NBaXggLT4gZ2l0ICJTdG9yZXMgRFNMIgogICAgICAgIGdpdCAtPiBjaVBpcGVsaW5lICJUcmlnZ2VycyBvbiBnaXRmbG93IGNoYW5nZSIKCiAgICAgICAgZGVwbG95bWVudEVudmlyb25tZW50ICJQcm9kdWN0aW9uIiB7CiAgICAgICAgICAgIGRlcGxveW1lbnROb2RlICJDbG91ZCBQcm92aWRlciIgewogICAgICAgICAgICAgICAgdGFncyAiQ2xvdWQiCiAgICAgICAgICAgICAgICBwcm9wZXJ0aWVzIHsKICAgICAgICAgICAgICAgICAgICAib3duZXIiICJDbG91ZCBUZWFtIgogICAgICAgICAgICAgICAgfQoKICAgICAgICAgICAgICAgIHJlZ2lvbiA9IGRlcGxveW1lbnROb2RlICJSZWdpb24iIHsKICAgICAgICAgICAgICAgICAgICB0YWdzICJSZWdpb24iCgogICAgICAgICAgICAgICAgICAgIGlwU2NoZW1lID0gZGVwbG95bWVudE5vZGUgIk5ldHdvcmsiIHsKICAgICAgICAgICAgICAgICAgICAgICAgdGFncyAiaXBTY2hlbWUiCiAgICAgICAgICAgICAgICAgICAgICAgIHByb3BlcnRpZXMgewogICAgICAgICAgICAgICAgICAgICAgICAgICAgIm5ldHdvcmtBZG1pbiIgIk5ldHdvcmsgVGVhbSIKICAgICAgICAgICAgICAgICAgICAgICAgICAgICJjaWRyIiAiMTAuMC4wLjAvMTYiCiAgICAgICAgICAgICAgICAgICAgICAgIH0KCiAgICAgICAgICAgICAgICAgICAgICAgIHB1YmxpY1N1Ym5ldCA9IGRlcGxveW1lbnROb2RlICJQdWJsaWMgU3VibmV0IiAiMTAuMC4wLjAvMjQiIHsKICAgICAgICAgICAgICAgICAgICAgICAgICAgIHRhZ3MgIlN1Ym5ldCIKICAgICAgICAgICAgICAgICAgICAgICAgICAgIHByb3BlcnRpZXMgewogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJhdmFpbGFiaWxpdHlab25lIiAidXMtZWFzdC1tdWx0aXBsZSIKICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0KCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBhcGlHYXRld2F5ID0gaW5mcmFzdHJ1Y3R1cmVOb2RlICJBUEkgR2F0ZXdheSIgIlJvdXRlcyBBUEkgcmVxdWVzdHMgdG8gYmFja2VuZCBzZXJ2aWNlcy4iIHsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0YWdzICJBUEkgR2F0ZXdheSIKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwcm9wZXJ0aWVzIHsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIm93bmVyIiAiQVBJIFRlYW0iCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJzY2hlbWUiICJpbnRlcm5ldC1mYWNpbmciCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgICAgICAgICB9CgogICAgICAgICAgICAgICAgICAgICAgICBwcml2YXRlU3VibmV0ID0gZGVwbG95bWVudE5vZGUgIlByaXZhdGUgU3VibmV0IiAiMTAuMC4xLjAvMjQiIHsKICAgICAgICAgICAgICAgICAgICAgICAgICAgIHRhZ3MgIlN1Ym5ldCIKICAgICAgICAgICAgICAgICAgICAgICAgICAgIHByb3BlcnRpZXMgewogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJhdmFpbGFiaWxpdHlab25lIiAidXMtZWFzdC0xYiIKICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0KCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBrdWJlcm5ldGVzID0gZGVwbG95bWVudE5vZGUgIkt1YmVybmV0ZXMgU2VydmljZSIgewogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHRhZ3MgIkt1YmVybmV0ZXMgU2VydmljZSIKCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAga3ViZXJuZXRlc0NsdXN0ZXIgPSBkZXBsb3ltZW50Tm9kZSAiS3ViZXJuZXRlcyBDbHVzdGVyIiB7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHRhZ3MgIkt1YmVybmV0ZXMgQ2x1c3RlciIKCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGt1YmVybmV0ZXNOb2RlR3JvdXAgPSBkZXBsb3ltZW50Tm9kZSAiS3ViZXJuZXRlcyBOb2RlIEdyb3VwIiB7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0YWdzICJLdWJlcm5ldGVzIE5vZGUgR3JvdXAiCgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaW5wdXRJbnRlcmZhY2VQb2QgPSBjb250YWluZXJJbnN0YW5jZSBpbnB1dEludGVyZmFjZQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZ3B0QXNzaXN0YW50UG9kID0gY29udGFpbmVySW5zdGFuY2UgZ3B0QXNzaXN0YW50CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBtb2RlbFBhcnNlclBvZCA9IGNvbnRhaW5lckluc3RhbmNlIG1vZGVsUGFyc2VyCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBtYXBwaW5nRW5naW5lUG9kID0gY29udGFpbmVySW5zdGFuY2UgbWFwcGluZ0VuZ2luZQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdGVtcGxhdGVSZXBvc2l0b3J5UG9kID0gY29udGFpbmVySW5zdGFuY2UgdGVtcGxhdGVSZXBvc2l0b3J5CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAgICAgICAgICAgICB9CgogICAgICAgICAgICAgICAgICAgICAgICAgICAgbW9uaXRvcmluZyA9IGluZnJhc3RydWN0dXJlTm9kZSAiTW9uaXRvcmluZyIgIk1vbml0b3JpbmcgYW5kIGxvZ2dpbmcgc2VydmljZS4iIHsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0YWdzICJNb25pdG9yaW5nIgogICAgICAgICAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgICAgICAgICB9CgogICAgICAgICAgICAgICAgICAgICAgICBpZGVudGl0eUFjY2Vzc01hbmFnZW1lbnQgPSBpbmZyYXN0cnVjdHVyZU5vZGUgIklkZW50aXR5IGFuZCBBY2Nlc3MgTWFuYWdlbWVudCIgIklkZW50aXR5IGFuZCBBY2Nlc3MgTWFuYWdlbWVudCBzZXJ2aWNlLiIgewogICAgICAgICAgICAgICAgICAgICAgICAgICAgdGFncyAiSWRlbnRpdHkgYW5kIEFjY2VzcyBNYW5hZ2VtZW50IgogICAgICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAgICAgfQoKICAgICAgICAgICAgICAgICAgICBhcGlHYXRld2F5IC0+IGlucHV0SW50ZXJmYWNlUG9kICJGb3J3YXJkcyByZXF1ZXN0cyB0byIgIkhUVFBTIgogICAgICAgICAgICAgICAgICAgIGlucHV0SW50ZXJmYWNlUG9kIC0+IG1vbml0b3JpbmcgIlNlbmRzIGxvZ3MgdG8iCiAgICAgICAgICAgICAgICAgICAgaW5wdXRJbnRlcmZhY2VQb2QgLT4gaWRlbnRpdHlBY2Nlc3NNYW5hZ2VtZW50ICJVc2VzIHJvbGVzIGFuZCBwb2xpY2llcyBmcm9tIgogICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9CiAgICAgICAgfQogICAgfQoKICAgIHZpZXdzIHsKICAgICAgICBzeXN0ZW1Db250ZXh0IG1vc0FpeCB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICBhdXRvbGF5b3V0IGxyCiAgICAgICAgfQoKICAgICAgICBjb250YWluZXIgbW9zQWl4IHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGF1dG9sYXlvdXQgbHIKICAgICAgICB9CgogICAgICAgIGRlcGxveW1lbnQgbW9zQWl4ICJQcm9kdWN0aW9uIiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICBhdXRvbGF5b3V0IGxyCiAgICAgICAgfQoKICAgICAgICBzdHlsZXMgewogICAgICAgICAgICBlbGVtZW50ICJFbGVtZW50IiB7CiAgICAgICAgICAgICAgICBzaGFwZSByb3VuZGVkYm94CiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICNmZmZmZmYKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJDb250YWluZXIiIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgI2ZmZmZmZgogICAgICAgICAgICB9CiAgICAgICAgICAgIGVsZW1lbnQgIkFwcGxpY2F0aW9uIiB7CiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICNmZmZmZmYKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJEYXRhYmFzZSIgewogICAgICAgICAgICAgICAgc2hhcGUgY3lsaW5kZXIKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJTdWJuZXQiIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgI2MwZTBmZgogICAgICAgICAgICAgICAgc2hhcGUgcm91bmRlZGJveAogICAgICAgICAgICAgICAgYm9yZGVyIGRhc2hlZAogICAgICAgICAgICB9CiAgICAgICAgfQoKICAgICAgICB0aGVtZXMgaHR0cHM6Ly9zdGF0aWMuc3RydWN0dXJpenIuY29tL3RoZW1lcy9hbWF6b24td2ViLXNlcnZpY2VzLTIwMjMuMDEuMzEvdGhlbWUuanNvbgogICAgfQp9Cg=="
   },
   "views" : {
     "configuration" : {
       "branding" : { },
-      "lastSavedView" : "Diagram1",
+      "lastSavedView" : "Deployment-001",
       "metadataSymbols" : "SquareBrackets",
-      "styles" : { },
-      "terminology" : { }
+      "styles" : {
+        "elements" : [ {
+          "background" : "#ffffff",
+          "shape" : "RoundedBox",
+          "tag" : "Element"
+        }, {
+          "background" : "#ffffff",
+          "tag" : "Container"
+        }, {
+          "background" : "#ffffff",
+          "tag" : "Application"
+        }, {
+          "shape" : "Cylinder",
+          "tag" : "Database"
+        }, {
+          "background" : "#c0e0ff",
+          "border" : "Dashed",
+          "shape" : "RoundedBox",
+          "tag" : "Subnet"
+        } ]
+      },
+      "terminology" : { },
+      "themes" : [ "https://static.structurizr.com/themes/amazon-web-services-2023.01.31/theme.json" ]
     },
-    "systemContextViews" : [ {
+    "containerViews" : [ {
+      "automaticLayout" : {
+        "applied" : true,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
       "dimensions" : {
-        "height" : 1748,
-        "width" : 2480
+        "height" : 1411,
+        "width" : 3870
       },
       "elements" : [ {
         "id" : "1",
-        "x" : 0,
-        "y" : 0
+        "x" : 200,
+        "y" : 520
+      }, {
+        "id" : "3",
+        "x" : 950,
+        "y" : 520
+      }, {
+        "id" : "4",
+        "x" : 1700,
+        "y" : 820
+      }, {
+        "id" : "5",
+        "x" : 1700,
+        "y" : 220
+      }, {
+        "id" : "6",
+        "x" : 2450,
+        "y" : 220
+      }, {
+        "id" : "7",
+        "x" : 3200,
+        "y" : 220
+      } ],
+      "externalSoftwareSystemBoundariesVisible" : false,
+      "generatedKey" : true,
+      "key" : "Container-001",
+      "order" : 2,
+      "relationships" : [ {
+        "id" : "10"
+      }, {
+        "id" : "11"
+      }, {
+        "id" : "12"
+      }, {
+        "id" : "13"
+      }, {
+        "id" : "8"
+      } ],
+      "softwareSystemId" : "2"
+    } ],
+    "deploymentViews" : [ {
+      "automaticLayout" : {
+        "applied" : true,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "dimensions" : {
+        "height" : 3314,
+        "width" : 4324
+      },
+      "elements" : [ {
+        "id" : "18",
+        "x" : 175,
+        "y" : 175
+      }, {
+        "id" : "19",
+        "x" : 175,
+        "y" : 175
+      }, {
+        "id" : "20",
+        "x" : 175,
+        "y" : 175
+      }, {
+        "id" : "21",
+        "x" : 175,
+        "y" : 175
+      }, {
+        "id" : "22",
+        "x" : 279,
+        "y" : 1576
+      }, {
+        "id" : "23",
+        "x" : 175,
+        "y" : 175
+      }, {
+        "id" : "24",
+        "x" : 175,
+        "y" : 175
+      }, {
+        "id" : "25",
+        "x" : 175,
+        "y" : 175
+      }, {
+        "id" : "26",
+        "x" : 175,
+        "y" : 175
+      }, {
+        "id" : "27",
+        "x" : 1283,
+        "y" : 1576
+      }, {
+        "id" : "28",
+        "x" : 2033,
+        "y" : 2176
+      }, {
+        "id" : "30",
+        "x" : 2033,
+        "y" : 1576
+      }, {
+        "id" : "32",
+        "x" : 2783,
+        "y" : 1576
+      }, {
+        "id" : "34",
+        "x" : 3533,
+        "y" : 1576
+      }, {
+        "id" : "36",
+        "x" : 2033,
+        "y" : 859
+      }, {
+        "id" : "37",
+        "x" : 2033,
+        "y" : 259
+      } ],
+      "environment" : "Production",
+      "generatedKey" : true,
+      "key" : "Deployment-001",
+      "order" : 3,
+      "relationships" : [ {
+        "id" : "29"
+      }, {
+        "id" : "31"
+      }, {
+        "id" : "33"
+      }, {
+        "id" : "35"
+      }, {
+        "id" : "38"
+      }, {
+        "id" : "39"
+      }, {
+        "id" : "40",
+        "vertices" : [ {
+          "x" : 2033,
+          "y" : 680
+        } ]
+      } ],
+      "softwareSystemId" : "2"
+    } ],
+    "systemContextViews" : [ {
+      "automaticLayout" : {
+        "applied" : true,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "dimensions" : {
+        "height" : 700,
+        "width" : 2350
+      },
+      "elements" : [ {
+        "id" : "1",
+        "x" : 199,
+        "y" : 200
       }, {
         "id" : "2",
-        "x" : 1015,
-        "y" : 724
+        "x" : 949,
+        "y" : 200
+      }, {
+        "id" : "14",
+        "x" : 1699,
+        "y" : 200
       } ],
       "enterpriseBoundaryVisible" : true,
-      "key" : "Diagram1",
+      "generatedKey" : true,
+      "key" : "SystemContext-001",
       "order" : 1,
-      "paperSize" : "A5_Landscape",
       "relationships" : [ {
-        "id" : "3"
+        "id" : "16"
+      }, {
+        "id" : "9"
       } ],
       "softwareSystemId" : "2"
     } ]
